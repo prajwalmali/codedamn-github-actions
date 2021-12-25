@@ -35,4 +35,5 @@ jobs:
         runs-on: ubuntu-latest
         env:
             MY_JOB_OUTPUT: ${{ needs.buildApp.outputs.text }}
-        run: echo $MY_JOB_OUTPUT
+        steps: 
+            - run: echo $MY_JOB_OUTPUT

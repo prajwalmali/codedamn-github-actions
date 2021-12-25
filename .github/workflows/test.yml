@@ -1,0 +1,8 @@
+name: My First GitHub Action
+on: [push]
+jobs:
+    build-app: 
+        runs-on: ubuntu-latest
+        steps: 
+            - uses: actions/checkout@v2
+            - run: tree

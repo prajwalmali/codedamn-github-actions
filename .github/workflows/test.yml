@@ -1,8 +1,14 @@
 name: My First GitHub Action
 on: [push]
 jobs:
-    build-app: 
+    buildApp: 
         runs-on: ubuntu-latest
+        outputs:
+            text: ${{ steps.finish.outputs.text }}
+        env:
+            VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+            VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+            VERCEL_ACCESS_TOKEN: ${{ secrets.VERCEL_ACCESS_TOKEN }}
         steps: 
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v2
@@ -12,10 +18,22 @@ jobs:
               run: yarn
             - name: Build The Project
               run: yarn build
+            - name: Sets The Vercel Env
+              run: |
+                cd build
+                mkdir .vercel
+                cd .vercel
+                touch project.json
+                echo "{\"projectId\":\"$VERCEL_PROJECT_ID\",\"orgId\":\"H6nj7J1Ka9Tf4CpLSxzv2MNI\"}" > project.json
             - name: Deploying The Project
-              env: 
-                VERCEL_ORG_ID: H6nj7J1Ka9Tf4CpLSxzv2MNI
-                VERCEL_PROJECT_ID: prj_WeyTcVuBJMaYYwAr70qehkC723Fs
               run: yarn deploy
             - name: Setup Done
-              run: echo "ok"
+              id: finish
+              run: echo "::set-output name=text::hi-build"
+    test-app: 
+        needs: buildApp
+        runs-on: ubuntu-latest
+        env:
+            MY_JOB_OUTPUT: ${{ needs.buildApp.outputs.text }}
+        steps: 
+            - run: echo $MY_JOB_OUTPUT

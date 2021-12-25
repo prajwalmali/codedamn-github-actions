@@ -13,3 +13,4 @@ jobs:
             - name: Build The Project
               run: yarn build
             - name: Setup Done
+              run: echo "ok"

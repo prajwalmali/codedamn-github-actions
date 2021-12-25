@@ -1,5 +1,4 @@
 name: My First GitHub Action
-run: echo "HI"
 on: [push]
 jobs:
     buildApp: 
@@ -36,4 +35,4 @@ jobs:
         runs-on: ubuntu-latest
         env:
             MY_JOB_OUTPUT: ${{ needs.buildApp.outputs.text }}
-        steps: echo $MY_JOB_OUTPUT
+        run: echo $MY_JOB_OUTPUT

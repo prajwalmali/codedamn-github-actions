@@ -1,7 +1,7 @@
 name: My First GitHub Action
 on: [push]
 jobs:
-    build-app: 
+    buildApp: 
         runs-on: ubuntu-latest
         outputs:
             text: ${{ steps.finish.outputs.text }}
@@ -31,8 +31,8 @@ jobs:
               id: finish
               run: echo "::set-output name=text::hi-build"
     test-app: 
-        needs: build-app
+        needs: buildApp
         runs-on: ubuntu-latest
         env:
-            MY_JOB_OUTPUT: ${{ needs.build-app.outputs.text }}
+            MY_JOB_OUTPUT: ${{ needs.buildApp.outputs.text }}
         steps: echo $MY_JOB_OUTPUT

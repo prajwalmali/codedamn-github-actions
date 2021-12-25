@@ -1,4 +1,5 @@
 name: My First GitHub Action
+run: echo "HI"
 on: [push]
 jobs:
     buildApp: 

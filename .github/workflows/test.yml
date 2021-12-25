@@ -28,7 +28,7 @@ jobs:
             - name: Deploying The Project
               run: yarn deploy
             - name: Setup Done
-              uses: finish
+              id: finish
               run: echo "::set-output name=text::hi-build"
     test-app: 
         needs: build-app

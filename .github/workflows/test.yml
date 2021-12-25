@@ -8,6 +8,8 @@ jobs:
             - uses: actions/setup-node@v2
               with : 
                 node-version: '14.17.0'
+            - name: Install node_modules
+              run: yarn
             - name: Build The Project
               run: yarn build
             - name: Setup Done
